@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Carrusel Bitrix Parametrizable</title>
+
+  <style>
+  /* ============================================================
+     VARIABLES GLOBALES (EDITABLES)
+  ============================================================ */
+  :root {
+    /* Tamaños generales */
+    --ancho-carrusel: 650px;   /* aumentado */
+    --alto-carrusel: auto;    /* aumentado */
+    --ancho-box: 500px;
+
+    /* Tipografías */
+    --font-family: 'Red Hat Display', sans-serif;
+    --font-titulo: 30px;
+    --font-subtitulo: 22px;
+    --font-descripcion: 18px;
+
+    /* Colores */
+    --color-titulo: #d3e7e7;
+    --color-subtitulo: #d3e7e7;
+    --color-descripcion: #d3e7e7;
+    --color-fondo-box: #050505;
+    --color-fondo-carrusel: #050505;
+
+    /* Transición */
+    --velocidad: 0.5s;
+
+    /* Cantidad de imágenes del carrusel (solo visual) */
+    --cantidad-fotos: 3;
+  }
+  
+
+  body {
+    margin: 0;
+    background: #050505;
+    font-family: var(--font-family);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;     /* centrado vertical */
+    min-height: 100vh;       /* ocupa toda la pantalla */
+    padding: 100px;
+  }
+
+  /* CONTENEDOR GENERAL */
+  /* CONTENEDOR QUE CENTRA TODO */
+.bloque-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;   /* centra horizontalmente */
+  align-items: center;
+  padding: 5px;
+}
+
+/* Ahora .bloque deja de centrar por sí mismo */
+.bloque {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  max-width: 1200px;
+}
+
+  .box-texto,
+  .foto-carrusel {
+    flex-shrink: 0;
+    border-radius: 12px;     /* <----- evita que se achiquen */
+    }
+
+  /* BOX DE TEXTO */
+  .box-texto {
+    background: var(--color-fondo-box);
+    padding: 20px;
+    border-radius: 12px;
+    width: var(--ancho-box);
+  }
+
+  .box-texto h1 {
+    font-size: var(--font-titulo);
+    margin: 0 0 10px;
+    color: var(--color-titulo);
+  }
+
+  .box-texto h2 {
+    font-size: var(--font-subtitulo);
+    margin: 0 0 15px;
+    color: var(--color-subtitulo);
+  }
+
+  .box-texto p {
+    font-size: var(--font-descripcion);
+    margin: 0;
+    color: var(--color-descripcion);
+    line-height: 1.5;
+  }
+
+  /* CARRUSEL DE FOTOS */
+  .foto-carrusel {
+  width: var(--ancho-carrusel);
+  height: 400px;   /* <- o el alto que prefieras */
+  overflow: hidden;
+  position: relative;
+  background: var(--color-fondo-carrusel);
+  border-radius: 12px;
+ 
+}
+
+
+  .foto-track {
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+    transition: var(--velocidad);
+    border-radius: 12px;
+  }
+
+  .foto-track img {
+  width: var(--ancho-carrusel);
+  height: 100%;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+  
+
+  /* Botones */
+  .ctrl {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #1a043f;
+    color: white;
+    border: none;
+    font-size: 22px;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    z-index: 10;
+  }
+
+  .ctrl.left { left: 10px; 
+    transition: background-color 0.3s ease, color 0.3s ease;}
+  .ctrl.right { right: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease; } 
+
+
+  .ctrl:hover {
+    background-color: #0077dd ; /* color del hover */
+    color: #ffffff;            /* color del ícono en hover */
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="bloque-wrapper">
+  <div class="bloque">
+
+    <!-- BOX DE TEXTO -->
+    <div class="box-texto">
+      <h1 id="titulo">El 5 en la cancha…, y en las organizaciones.</h1>
+      <h2 id=>Conducido por Leandro Di Matteo junto a Sergio Alberino, Pablo Folino, Ramiro Colmeiro y Lucas Liaño, este espacio presentó una síntesis de las principales líneas de trabajo del GIAR: BCI para evaluar concentración y emociones, robótica móvil y SLAM, visión artificial, modelado con LLMs, nanosatélites y extremidades robóticas.
+Los referentes destacaron cómo el GIAR evolucionó desde prototipos propios construidos hace décadas hasta un ecosistema de investigación consolidado, orientado tanto a la academia como a la industria, y formador de profesionales especializados en IA y robótica.</h2>
+      <p id="descripcion">
+        
+      </p>
+    </div>
+
+    <!-- CARRUSEL DE FOTOS -->
+    <div class="foto-carrusel" id="carrusel1">
+      <div class="foto-track">
+        <!-- IMÁGENES PARAMETRIZABLES -->
+        <img src="https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/11-El 5 dn la cancha... , y en las organizaciones
+/diego_fron.jpg" alt="foto1">
+        <img src="https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/11-El 5 dn la cancha... , y en las organizaciones
+/diego_lateral.jpg" alt="foto4">
+        <img src="https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/11-El 5 dn la cancha... , y en las organizaciones
+/diego_lejos.jpg
+" alt="foto3">
+        
+        
+      </div>
+
+      <button class="ctrl left">❮</button>
+      <button class="ctrl right">❯</button>
+    </div>
+
+  </div>
+  </div>
+
+<script>
+/* ============================
+   CARRUSEL SIMPLE COMPATIBLE
+============================ */
+document.querySelectorAll('.foto-carrusel').forEach(cr => {
+  const track = cr.querySelector('.foto-track');
+  const imgs = Array.from(track.children);
+  const total = imgs.length;
+
+  let i = 0;
+
+  // Asegura que el track tenga el ancho total sumado de todas las imágenes
+  function ajustarTrack() {
+    const totalWidth = imgs.reduce((acc, img) => acc + img.clientWidth, 0);
+    track.style.width = totalWidth + "px";
+  }
+
+  // Calcula la posición exacta sumando el ancho de imágenes anteriores
+  function update() {
+    const offset = imgs
+      .slice(0, i)
+      .reduce((acc, img) => acc + img.clientWidth, 0);
+
+    track.style.transform = `translateX(${-offset}px)`;
+  }
+
+  // Botón DERECHA
+  cr.querySelector('.right').onclick = () => {
+    i = (i + 1) % total;
+    update();
+  };
+
+  // Botón IZQUIERDA
+  cr.querySelector('.left').onclick = () => {
+    i = (i - 1 + total) % total;
+    update();
+  };
+
+  // Ajustar track luego de que carguen las imágenes
+  window.addEventListener("load", () => {
+    ajustarTrack();
+    update();
+  });
+
+  // Por si alguna imagen carga tarde
+  imgs.forEach(img => img.onload = () => {
+    ajustarTrack();
+    update();
+  });
+});
+</script>
+ 
+</body>
+</html>
