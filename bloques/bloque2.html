@@ -1,3 +1,20 @@
+<script>
+/* ============================
+   Variables de contenido editables
+============================ */
+
+const Bloque ={
+  titulo: "Robótica Viva: La evolución que ya llegó",
+  subtitulo: "Este bloque, presentado por Franco Davicino (Big Dipper) y Nelson Fuentes (Promptear / Avivate), mostró en vivo al robot cuadrúpedo Go2 y al humanoide G1, ambos desplazándose de forma autónoma frente al auditorio. Los speakers explicaron cómo Big Dipper integra robótica, teleoperación con realidad virtual y sensores avanzados para tareas de seguridad industrial, permitiendo operar en entornos de riesgo sin exponer personal humano. El segmento cerró con la intención de la empresa de colaborar con el GIAR en investigación, pasantías y desarrollo de soluciones nacionales basadas en robótica inteligente.",
+  descripcion: "",
+  fotos: [
+    "https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/2-Robótica_Viva/nelson fuentes y franco davicino with robots 2.jpg",
+    "https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/2-Robótica_Viva/nelson_fuentes_y_franco_davino_with_robots.jpg",
+    "https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/2-Robótica_Viva/franco_davicino_y_nelson _desde_lejos.jpg"
+  ]
+}https://github.com/cuso03/giar_evento_2025_landing/blob/main/giar_eventos/2-Rob%C3%B3tica%20Viva/franco_davicino_y_nelson%20_desde_lejos.jpg
+</script>
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -48,6 +65,7 @@
     min-height: 100vh;       /* ocupa toda la pantalla */
     padding: 100px;
   }
+  
 
   /* CONTENEDOR GENERAL */
   /* CONTENEDOR QUE CENTRA TODO */
@@ -166,22 +184,15 @@
 
     <!-- BOX DE TEXTO -->
     <div class="box-texto">
-      <h1 id="titulo">Robótica Viva: La evolución que ya llegó</h1>
-      <h2 id=>Este bloque, presentado por Franco Davicino (Big Dipper) y Nelson Fuentes (Promptear / Avivate), mostró en vivo al robot cuadrúpedo Go2 y al humanoide G1, ambos desplazándose de forma autónoma frente al auditorio. Los speakers explicaron cómo Big Dipper integra robótica, teleoperación con realidad virtual y sensores avanzados para tareas de seguridad industrial, permitiendo operar en entornos de riesgo sin exponer personal humano.
-El segmento cerró con la intención de la empresa de colaborar con el GIAR en investigación, pasantías y desarrollo de soluciones nacionales basadas en robótica inteligente.</h2>
-      <p id="descripcion">
-        
-      </p>
-    </div>
+  <h1 id="titulo"></h1>
+  <h2 id="subtitulo"></h2>
+  <p id="descripcion"></p>
+</div>
 
     <!-- CARRUSEL DE FOTOS -->
     <div class="foto-carrusel" id="carrusel1">
       <div class="foto-track">
-        <!-- IMÁGENES PARAMETRIZABLES -->
-        <img src="https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/2-Robótica Viva/nelson fuentes y franco davicino with robots 2.jpg" alt="foto1">
-        <img src="https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/2-Robótica Viva/nelson_fuentes_y_franco_davino_with_robots.jpg" alt="foto3">
-        <img src="https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/2-Robótica Viva/franco_davicino_y_nelson _desde_lejos.jpg" alt="foto4">
-        
+        <div class="foto-track"></div>
       </div>
 
       <button class="ctrl left">❮</button>
@@ -192,54 +203,71 @@ El segmento cerró con la intención de la empresa de colaborar con el GIAR en i
   </div>
 
 <script>
-/* ============================
-   CARRUSEL SIMPLE COMPATIBLE
-============================ */
-document.querySelectorAll('.foto-carrusel').forEach(cr => {
-  const track = cr.querySelector('.foto-track');
-  const imgs = Array.from(track.children);
-  const total = imgs.length;
+document.addEventListener("DOMContentLoaded", () => {
 
-  let i = 0;
+  /* ============================
+     INYECTAR TEXTO
+  ============================ */
+  document.getElementById("titulo").innerText = Bloque.titulo;
+  document.getElementById("subtitulo").innerText = Bloque.subtitulo;
+  document.getElementById("descripcion").innerText = Bloque.descripcion;
 
-  // Asegura que el track tenga el ancho total sumado de todas las imágenes
-  function ajustarTrack() {
-    const totalWidth = imgs.reduce((acc, img) => acc + img.clientWidth, 0);
-    track.style.width = totalWidth + "px";
-  }
+  /* ============================
+     GENERAR IMÁGENES
+  ============================ */
+  const track = document.querySelector(".foto-track");
 
-  // Calcula la posición exacta sumando el ancho de imágenes anteriores
-  function update() {
-    const offset = imgs
-      .slice(0, i)
-      .reduce((acc, img) => acc + img.clientWidth, 0);
-
-    track.style.transform = `translateX(${-offset}px)`;
-  }
-
-  // Botón DERECHA
-  cr.querySelector('.right').onclick = () => {
-    i = (i + 1) % total;
-    update();
-  };
-
-  // Botón IZQUIERDA
-  cr.querySelector('.left').onclick = () => {
-    i = (i - 1 + total) % total;
-    update();
-  };
-
-  // Ajustar track luego de que carguen las imágenes
-  window.addEventListener("load", () => {
-    ajustarTrack();
-    update();
+  Bloque.fotos.forEach((url, index) => {
+    const img = document.createElement("img");
+    img.src = url;
+    img.alt = "foto" + (index + 1);
+    track.appendChild(img);
   });
 
-  // Por si alguna imagen carga tarde
-  imgs.forEach(img => img.onload = () => {
-    ajustarTrack();
-    update();
+  /* ============================
+     CARRUSEL
+  ============================ */
+  document.querySelectorAll('.foto-carrusel').forEach(cr => {
+    const track = cr.querySelector('.foto-track');
+    const imgs = Array.from(track.children);
+    const total = imgs.length;
+
+    let i = 0;
+
+    function ajustarTrack() {
+      const totalWidth = imgs.reduce((acc, img) => acc + img.clientWidth, 0);
+      track.style.width = totalWidth + "px";
+    }
+
+    function update() {
+      const offset = imgs
+        .slice(0, i)
+        .reduce((acc, img) => acc + img.clientWidth, 0);
+
+      track.style.transform = `translateX(${-offset}px)`;
+    }
+
+    cr.querySelector('.right').onclick = () => {
+      i = (i + 1) % total;
+      update();
+    };
+
+    cr.querySelector('.left').onclick = () => {
+      i = (i - 1 + total) % total;
+      update();
+    };
+
+    window.addEventListener("load", () => {
+      ajustarTrack();
+      update();
+    });
+
+    imgs.forEach(img => img.onload = () => {
+      ajustarTrack();
+      update();
+    });
   });
+
 });
 </script>
  
