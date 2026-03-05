@@ -1,14 +1,11 @@
 <div class="bloque-wrapper"
      data-config='{
        "titulo": "  Inteligencia artificial y la evolución de los servicios",
-       "subtitulo": "Tomás Bianco (Senior Manager en Accenture) analizó cómo la inteligencia artificial redefine los modelos de negocio, migrando de sistemas rígidos hacia servicios inmediatos y personalizados. En su exposición, destacó a la IA como un "copiloto" esencial para potenciar la productividad humana y la toma de decisiones, enfatizando la importancia del uso ético de los datos y el cambio cultural necesario para integrar estas tecnologías de forma responsable en las organizaciones actuales.",
+       "subtitulo": "Tomás Bianco (Senior Manager en Accenture) analizó cómo la inteligencia artificial redefine los modelos de negocio, migrando de sistemas rígidos hacia servicios inmediatos y personalizados. En su exposición, destacó a la IA como un `copiloto´ esencial para potenciar la productividad humana y la toma de decisiones, enfatizando la importancia del uso ético de los datos y el cambio cultural necesario para integrar estas tecnologías de forma responsable en las organizaciones actuales.",
        "descripcion": "",
-       "fotos": [ "https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/5-Inteligencia Artificial y la evolución de los servicios
-        /tomas_bianco_cerca_abajo.jpg",
-        "https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/5-Inteligencia Artificial y la evolución de los servicios
-        /tomas_bianco_lateral.jpg",
-        "https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/5-Inteligencia Artificial y la evolución de los servicios
-        /tomi_bianco_de_mid.jpg" 
+       "fotos": [ "https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/5-Inteligencia Artificial y la evolución de los servicios/tomas_bianco_cerca_abajo.jpg",
+        "https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/5-Inteligencia Artificial y la evolución de los servicios/tomas_bianco_lateral.jpg",
+        "https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/5-Inteligencia Artificial y la evolución de los servicios/tomi_bianco_de_mid.jpg" 
      ]
      }'>
 
@@ -73,113 +70,3 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 </script>
-<style>
-  :root {
-    --distance-bloque-titulo:20px;
-    --distance-titulo-subtitulo:30px;
-    /* Tipografías */
-    --font-family: 'Red Hat Display', sans-serif;
-    --font-titulo: 32px;
-    --font-subtitulo: 28px;
-    --font-descripcion: 18px;
-
-    /* Colores */
-    --color-titulo: #d3e7e7;
-    --color-subtitulo: #d3e7e7;
-    --color-descripcion: #d3e7e7;
-    --color-fondo-box: #050505;
-    --color-fondo-carrusel: #050505;
-  }
-.bloque {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 80px;
-  width: 100%;
-  max-width: 2000px;
-  margin: 0 auto;
-  padding-top: var(--distance-bloque-titulo);
-  background: var(--color-fondo-carrusel);
-  
-}
-/* TEXTO */
-.box-texto {
-  width: 100%;
-  max-width: none;   /* eliminamos cualquier límite */
-}
-
-.box-texto h1 {
-  font-family: var(--font-family);
-  font-size: var(--font-titulo);
-  font-weight: bold ;
-  color:var(--color-titulo); 
-  line-height: 1.1;
-  
-}
-
-.box-texto h2 {
-  font-family: var(--font-family);
-  font-size: var(--font-subtitulo);
-  color:var(--color-subtitulo); 
-  line-height: 1.6;
-  margin-top: var(--distance-titulo-subtitulo);
-}
-/* CARRUSEL */
-.foto-carrusel {
-  width: 100%;
-  height: 820px;   /* grande real */
-  overflow: hidden;
-  aspect-ratio: 16/9 ; 
-  position: relative;
-  border-radius: 22px;
-  background: var(--color-fondo-carrusel);
-}
-
-.foto-track {
-  display: flex;
-  height: 100%;
-  transition: transform 0.5s ease;
-}
-
-.foto-track img {
-  width: 100%;      /* 👈 mismo ancho que carrusel */
-  height: 100%;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.ctrl {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #1a043f;
-  color: white;
-  border: none;
-  font-size: 22px;
-  padding: 6px 12px;
-  cursor: pointer;
-  border-radius: 6px;
-}
-@media (max-width: 1100px) {
-  .bloque {
-    flex-direction: column;
-  }
-
-  .foto-carrusel {
-    height: 480px;
-    width: 100%;
-  }
-}
-
-
-.ctrl.left { left: 10px; }
-.ctrl.right { right: 10px; }
-
-.bloque-wrapper {
-  position: relative;
-  width: 100vw;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--color-fondo-carrusel);
-}
-</style>
-
