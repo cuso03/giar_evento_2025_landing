@@ -157,18 +157,48 @@ document.addEventListener("DOMContentLoaded", function() {
   cursor: pointer;
   border-radius: 6px;
 }
+/* --- AJUSTE PARA MÓVILES --- */
 @media (max-width: 1100px) {
+  /* Forzar orden vertical */
   .bloque {
-    flex-direction: column;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    padding: 20px !important;
+  }
+
+  /* Desarmar caja de texto para reordenar */
+  .box-texto {
+    display: contents !important;
+  }
+
+  .titulo {
+    order: 1 !important;
+    text-align: center !important;
+    font-size: 26px !important;
   }
 
   .foto-carrusel {
-    height: 480px;
-    width: 100%;
+    order: 2 !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9 !important;
+    width: 100% !important;
+  }
+
+  .subtitulo {
+    order: 3 !important;
+    font-size: 16px !important;
+    text-align: left !important;
+  }
+
+  /* BOTONES MÁS CHICOS EN MÓVIL */
+  .ctrl {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 14px !important;
+    background: rgba(26, 4, 63, 0.6) !important;
   }
 }
-
-
 .ctrl.left { left: 10px; }
 .ctrl.right { right: 10px; }
 
