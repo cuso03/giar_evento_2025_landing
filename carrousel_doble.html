@@ -1,0 +1,285 @@
+<div class="carrousel-doble" >
+    <div class ="noticias-bloque"
+        data-config='{
+       "slides":[
+       {"img": "https://frba.utn.edu.ar/wp-content/uploads/2025/03/Banner-BECAS.png", "link": "https://frba.utn.edu.ar/investigacion/becas-de-investigacion/"},
+        {"img": "https://frba.utn.edu.ar/wp-content/uploads/2025/03/Banner-BECAS.png", "link": "https://frba.utn.edu.ar/investigacion/becas-de-investigacion/"}
+       ]
+     }'>
+        <h1><b>Noticias</b></h1>
+        <div class="foto-carrousel">
+            <div class="foto-track"></div>
+            <div class="dots" ></div>
+        </div>
+        <a class="boton" href="https://b24-oflzi3.bitrix24.site/">Ver todas las Noticias</a>
+
+
+    </div>
+    <div class="projectos-bloque">
+        <h1><b>Proyectos 2026</b></h1>
+        <a href="https://giar.ai/proyectos/emptytemplate_hcys/" class="proyecto-link">
+            <img src="https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/menu_projectos_perspectiva.png" alt="portada_menu" >
+            <div class="overlay">Ver Proyectos</div>
+        </a>
+    </div>
+</div>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+  document.querySelectorAll(".noticias-bloque").forEach(function(wrapper){
+
+    const data = JSON.parse(wrapper.dataset.config);
+    const track = wrapper.querySelector(".foto-track");
+    const dotsContainer = wrapper.querySelector(".dots");
+
+    let i = 0;
+
+    data.slides.forEach(function(slide, index){
+
+      const image = document.createElement("img");
+      image.src = slide.img;
+      image.alt = "foto " + (index + 1);
+
+      let container;
+
+      if (slide.link) {
+        const a = document.createElement("a");
+        a.href = slide.link;
+        a.classList.add("slide");
+
+        const overlay = document.createElement("div");
+        overlay.classList.add("overlay");
+        overlay.textContent = "Leer más";
+
+        a.appendChild(image);
+        a.appendChild(overlay);
+
+        container = a;
+      } else {
+        const div = document.createElement("div");
+        div.classList.add("slide");
+        div.appendChild(image);
+        container = div;
+      }
+
+      track.appendChild(container);
+
+      // crear dot
+      const dot = document.createElement("span");
+      dot.classList.add("dot");
+      if(index === 0) dot.classList.add("active");
+
+      dot.onclick = function(){
+        i = index;
+        update();
+      }
+
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = dotsContainer.querySelectorAll(".dot");
+    const total = data.slides.length;
+
+    function update(){
+      track.style.transform = `translateX(-${i * 100}%)`;
+
+      dots.forEach(d => d.classList.remove("active"));
+      dots[i].classList.add("active");
+    }
+
+    // autoplay
+    setInterval(function(){
+      i = (i + 1) % total;
+      update();
+    }, 2000);
+
+  });
+
+});
+</script>
+<style>
+  :root {
+    --distance-bloque-titulo:20px;
+    --distance-titulo-subtitulo:30px;
+    /* Tipografías */
+    --font-family: 'Red Hat Display', sans-serif;
+    --font-titulo: 32px;
+    --font-subtitulo: 28px;
+    --font-descripcion: 18px;
+
+    /* Colores */
+    --color-titulo: #d3e7e7;
+    --color-subtitulo: #d3e7e7;
+    --color-descripcion: #d3e7e7;
+    --color-fondo-box: #050505;
+    --color-fondo-carrusel: #050505;
+  }
+
+  
+ .carrousel-doble {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    width:100%;
+    margin:0 auto;
+    color: var(--color-fondo-carrusel)
+}
+.noticias-bloque h1,
+.projectos-bloque h1{
+  margin-bottom:15px;
+  border-bottom:2px solid #ffffff30;
+  padding-bottom:8px;
+  font-family: var(--font-family);
+  text-align: center;
+}
+ .noticias-bloque {
+    width:  100%;
+    height: auto;
+    color: var(--color-fondo-carrusel)
+ }
+ 
+ .foto-carrousel{
+  width:90%;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  position:relative;
+  color: var(--color-fondo-carrusel);
+  margin: 0 auto;
+}
+.foto-track{
+  display:flex;
+  height:100%;
+  transition:transform .5s ease;
+}
+.slide{
+  flex:0 0 100%;
+  height:100%;
+  position:relative;
+  overflow:hidden;
+  min-width:100%;
+
+}
+
+.dots{
+  position:absolute;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:8px;
+}
+
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#ffffff70;
+  cursor:pointer;
+  transition:all .3s ease;
+}
+
+.dot.active{
+  background:white;
+  transform:scale(1.2);
+}
+.boton{
+    display:block;                 /* permite centrar */
+    width:260px;                   /* ancho del botón */
+    margin:15px auto;              /* centrado horizontal */
+
+    padding:12px 15px;             /* tamaño interno */
+
+    background:#eeeff1;
+    color:var(--color-fondo-carrusel);
+    text-decoration:none;
+    border-radius:6px;
+
+    font-weight:bold;
+    text-align:center;
+    font-size:16px;
+    font-family:var(--font-family);
+
+    transition:background 0.3s ease, transform 0.2s ease;
+}
+
+.boton:hover{
+  background:#0287c5;
+  color:white;
+  transform:translateY(-2px);
+}
+
+.proyecto-link{
+  height: 100%;
+  display:block;
+  position:relative;
+  aspect-ratio:16/9;
+  overflow:hidden;
+}
+
+.slide img,
+.proyecto-link img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:contain !important;
+  background:  var(--color-fondo-carrusel);
+
+}
+@media (max-width: 1100px){
+    .carrousel-doble{
+         display: flex !important;
+         flex-direction: column !important;
+         gap: 20px !important;
+         padding: 20px !important;
+    }
+
+    
+    .foto-carrousel {
+    order: 2 !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9 !important;
+    width: 100% !important;
+  }
+  
+
+}
+.overlay{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+
+  background:rgba(0,0,0,0.55);
+  color:white;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:22px;
+  font-weight:bold;
+
+  opacity:0;
+  transition:opacity .3s ease;
+}
+.foto-track a:hover .overlay {
+  opacity: 1;
+}
+.foto-track a {
+  transition: transform 0.3s ease;
+}
+
+.foto-track a:hover {
+  transform: translateY(-6px);
+}
+.proyecto-link:hover .overlay{
+  opacity:1;
+}
+
+.foto-track a:hover .overlay{
+  opacity:1;
+}
+ </style>
