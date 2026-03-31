@@ -1,0 +1,315 @@
+<div class="main-wrapper">
+    <a href="https://giar.ai/#b538" class="btn-atras">← Atrás</a>
+    <h1 class="main-title">Noticias</h1>
+    <p class="main-subtitle">Explorá las novedades del Grupo de Inteligencia Artificial y Robótica</p>
+
+    <div class="filters-container">
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="thesisSearch" oninput="applyFilters()" placeholder="Buscar por título">
+
+            <div class= espacio> </div>
+            <select class="orden" id="orden" onchange="ordenarNoticias()">    
+            <option value="recientes">Más recientes</option>
+            <option value="antiguas">Más antiguas</option>
+            
+            
+            </select>
+            <button class="reset-btn" onclick="clearAllFilters()">Limpiar filtros</button>
+        </div>
+        
+    </div>
+    <!--template 1-->
+  
+    <div class="cards-grid" id="thesisGrid">
+
+        
+        <div class="noticia" data-fecha="2026-03-10">
+            <div class="badge" >utn</div> <!--epigrafe-->
+            <div class="data-fecha">10/3/2026</div> 
+            <h2 class="card-title"> Arrancó el ciclo lectivo 2026</h2> <!--titulo-->
+            <span class="meta-label">lugano sigue con obras</span><!--copete-->
+            <img src=  "https://frba.utn.edu.ar/wp-content/uploads/2025/03/Banner-BECAS.png"  alt= "notiica-1" >
+            <p class="card-description">xd</p><!--cuerpo-->
+            <button class="leer-mas-btn">Leer más</button>        
+        </div>
+
+
+    <!--template 2 columa texto izq, foto der-->
+
+
+        <div class="noticia" data-fecha="2026-03-11">
+            
+            <div class="badge" >utn</div> <!--epigrafe-->
+            <div class="data-fecha">11/3/2026</div> 
+            <h2 class="card-title"> becas de investigación</h2> <!--titulo-->
+            <span class="meta-label">jijijia</span><!--copete-->
+            <img src=  "https://frba.utn.edu.ar/wp-content/uploads/2025/03/Banner-BECAS.png"  alt= "notiica-1">
+            <p class="card-description">a</p><!--cuerpo-->
+            <button class="leer-mas-btn">Leer más</button>
+            
+        </div>
+
+        <div class="noticia" data-fecha="2026-03-10">
+            
+            <div class="badge" >utn</div> <!--epigrafe-->
+            <div class="data-fecha">10/3/2026</div> 
+            <h2 class="card-title"> becas de investigación</h2> <!--titulo-->
+            <span class="meta-label">jijijia</span><!--copete-->
+            <img src=  "https://frba.utn.edu.ar/wp-content/uploads/2025/03/Banner-BECAS.png"  alt= "notiica-1">
+            <p class="card-description">a</p><!--cuerpo-->
+            <button class="leer-mas-btn">Leer más</button>
+
+        </div>
+        
+
+    </div>
+
+<style>
+/* Estilos Base Dark */
+.main-wrapper {
+    background-color: #030712;
+    color: #ffffff;
+    padding: 40px 20px;
+    font-family: sans-serif;
+    position:relative;
+}
+.btn-atras{
+    top:50px;
+    right:50px;
+    position:absolute;
+    color:rgb(117, 154, 255)
+}
+.btn-atras:hover{
+    background-color: rgb(184, 211, 244);
+    color: white;
+} 
+
+
+.main-title { font-size: 38px; font-weight: 800; margin-bottom: 10px;color:white;font-family: 'Red Hat Display', sans-serif; }
+.main-subtitle { color: #9ca3af; font-size: 16px; margin-bottom: 30px; max-width: 800px; color:white;font-family: 'Red Hat Display', sans-serif;}
+
+/* Filtros */
+.filters-container { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+.search-box { position: relative; flex: 1; min-width: 250px; }
+.search-box input {
+    width: 100%; padding: 12px 12px 12px 40px;
+    background: #111827; border: 1px solid #1f2937;
+    border-radius: 30px; color: white;
+}
+.search-icon { position: absolute; left: 15px; top: 12px; color: #6b7280; }
+
+#statusFilter {
+    background: #111827; border: 1px solid #1f2937;
+    color: white; padding: 0 20px; border-radius: 30px;
+}
+ 
+.reset-btn, 
+.orden{
+    background: #111827; border: 2px solid #1f2937;
+    color: white; padding: 10px 20px; border-radius: 30px; cursor: pointer;
+
+}
+
+/* Grid de Tarjetas */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+}
+.noticia:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.noticia {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 24px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+    position: relative;
+    color:white;font-family: 'Red Hat Display', sans-serif;
+}
+
+.thesis-card:hover { transform: translateY(-5px); border-color: #3b82f6; }
+
+/* Badges */
+.data-fecha{
+   position: absolute;
+    top: 35px;
+    right: 35px;
+}
+.badge {
+    padding: 5px 14px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 700;
+    width: fit-content;
+    margin-bottom: 20px;
+}
+.badge-yellow { background: #fbbf24; color: #000; }
+.badge-pink { background: #ec4899; color: #fff; }
+.badge-purple { background: #a855f7; color: #fff; }
+
+.card-title { font-size: 19px; font-weight: 700; margin-bottom: 12px; line-height: 1.3; color:white;font-family: 'Red Hat Display', sans-serif;}
+.card-description {
+    color: #94a3b8;
+    font-size: 14px;
+    margin-bottom: 25px;
+
+    max-height: 0;      /* oculto al inicio */
+    overflow: hidden;
+
+    transition: max-height 0.4s ease;
+}
+.noticia.abierta .card-description{
+    max-height:200px;
+}
+.meta-label { font-size: 11px; font-weight: 700; color: #f1f5f9; letter-spacing: 1px; display: block; margin-bottom: 8px; }
+.meta-info { margin-bottom: 20px; }
+
+.meta-info ul { list-style: none; padding: 0; margin: 0; color: #cbd5e0; font-size: 14px; }
+.meta-info ul li::before { content: "• "; color: #3b82f6; }
+
+.tag-container { display: flex; gap: 8px; flex-wrap: wrap; }
+.tag {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid #334155;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 11px;
+    color: #e2e8f0;
+}
+.page-wrapper{
+    background:#030712;
+}
+
+.vacancies-count { font-size: 16px; font-weight: 700; }
+
+/* Botón Ver Detalle */
+.action-btn {
+    margin-top: auto;
+    background: #2563eb;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 15px;
+    transition: 0.2s;
+}
+.action-btn:hover { background: #1d4ed8; }
+
+.leer-mas-btn{
+    margin-top: auto;
+    background: transparent;
+    border: 1px solid #3b82f6;
+    color: #3b82f6;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+.leer-mas-btn:hover{
+    background:#3b82f6;
+    color:white;
+}
+.espacio{
+    padding:10px;
+}
+</style>
+<script>
+function applyFilters() {
+    filtrarNoticias();
+    ordenarNoticias();
+}
+
+function clearAllFilters() {
+
+  document.getElementById("thesisSearch").value = ""
+  document.getElementById("orden").value = "recientes"
+
+  applyFilters()
+
+}
+
+function filtrarNoticias() {
+
+  const texto = document
+    .getElementById("thesisSearch")
+    .value
+    .toLowerCase()
+
+  const noticias = document.querySelectorAll(".noticia")
+
+  noticias.forEach(noticia => {
+
+    const contenido = noticia.textContent.toLowerCase()
+
+    if (contenido.includes(texto)) {
+      noticia.style.display = ""
+    } else {
+      noticia.style.display = "none"
+    }
+
+  })
+
+}
+function ordenarNoticias() {
+
+  const orden = document.getElementById("orden").value;
+
+  const grid = document.getElementById("thesisGrid");
+
+  const cards = Array.from(grid.getElementsByClassName("noticia"));
+
+  cards.sort((a,b) => {
+
+    const fechaA = new Date(a.dataset.fecha);
+    const fechaB = new Date(b.dataset.fecha);
+
+    if (orden === "recientes") {
+      return fechaB - fechaA;
+    }
+
+    return fechaA - fechaB;
+
+  });
+
+  cards.forEach(card => grid.appendChild(card));
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  applyFilters()
+
+  document.querySelectorAll(".noticia").forEach(card => {
+
+    const boton = card.querySelector(".leer-mas-btn")
+
+    boton.addEventListener("click", (e) => {
+
+      e.stopPropagation()
+
+      card.classList.toggle("abierta")
+
+      if (card.classList.contains("abierta")) {
+        boton.textContent = "Leer menos"
+      } else {
+        boton.textContent = "Leer más"
+      }
+
+    })
+
+  })
+
+})
+
+</script>
