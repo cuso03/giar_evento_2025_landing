@@ -1,0 +1,279 @@
+<!-- Enlace de fuentes -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  /* Contenedor padre encapsulado para no interferir con Bitrix24 */
+  #giar-gallery-2025 {
+    --navy-2: #10152B;
+    --paper: #EDEEF5;
+    --paper-dim: #8B93AD;
+    --blue: #4A7DFF;
+    --visible: 4;      /* fotos visibles */
+    --gap: 24px;
+    --card-h: 180px;
+    --speed: .5s;
+
+    /* Mismo fondo unificado que las demás secciones */
+    background:
+      radial-gradient(ellipse 60% 45% at 12% 35%, rgba(45, 82, 199, 0.18), transparent 70%),
+      radial-gradient(ellipse 55% 45% at 88% 22%, rgba(100, 57, 199, 0.14), transparent 70%),
+      radial-gradient(ellipse 70% 50% at 50% 60%, rgba(26, 43, 92, 0.12), transparent 75%),
+      linear-gradient(180deg, #05070F 0%, #070C1D 50%, #04060D 100%);
+    color: var(--paper);
+    font-family: 'Red Hat Display', sans-serif;
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: clamp(60px, 8vw, 100px) clamp(20px, 4vw, 40px);
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  /* Reset local */
+  #giar-gallery-2025,
+  #giar-gallery-2025 * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  #giar-gallery-2025 .giar-content-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Cabecera centrada, mismo estilo de título (30px) */
+  #giar-gallery-2025 .section-header {
+    margin-bottom: 40px;
+    text-align: center;
+    width: 100%;
+  }
+
+  #giar-gallery-2025 h2.section-title {
+    font-family: 'Red Hat Display', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--paper);
+    line-height: 1.2;
+  }
+
+  /* Carrusel */
+  #giar-gallery-2025 .giar-carousel {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  #giar-gallery-2025 .giar-viewport { overflow: hidden; flex: 1; padding: 6px 0; }
+
+  #giar-gallery-2025 .giar-track {
+    display: flex;
+    gap: var(--gap);
+    transition: transform var(--speed) cubic-bezier(.3, .7, .2, 1);
+    will-change: transform;
+  }
+  #giar-gallery-2025 .giar-track.no-anim { transition: none; }
+
+  #giar-gallery-2025 .giar-slide {
+    flex: 0 0 calc((100% - var(--gap) * (var(--visible) - 1)) / var(--visible));
+    height: var(--card-h);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--navy-2);
+    border: 1px solid rgba(74, 125, 255, 0.25);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  #giar-gallery-2025 .giar-slide:hover {
+    border-color: rgba(74, 125, 255, 0.6);
+    box-shadow: 0 12px 30px rgba(74, 125, 255, 0.2);
+  }
+  #giar-gallery-2025 .giar-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    transition: transform 0.5s ease;
+  }
+  #giar-gallery-2025 .giar-slide:hover img { transform: scale(1.03); }
+
+  /* Flechas con el mismo lenguaje que los botones de acción */
+  #giar-gallery-2025 .giar-arrow {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(13, 18, 32, 0.85);
+    border: 1px solid rgba(74, 125, 255, 0.25);
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  }
+  #giar-gallery-2025 .giar-arrow:hover {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+  #giar-gallery-2025 .giar-arrow:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  #giar-gallery-2025 .giar-arrow svg { width: 20px; height: 20px; }
+
+  /* Ajustes responsivos: 2 fotos visibles */
+  @media (max-width: 900px) {
+    #giar-gallery-2025 { --visible: 2; --card-h: 150px; }
+  }
+  @media (max-width: 768px) {
+    #giar-gallery-2025 { padding: 40px 16px; }
+    #giar-gallery-2025 h2.section-title { font-size: 24px; }
+  }
+  @media (max-width: 520px) {
+    #giar-gallery-2025 { --gap: 12px; --card-h: 120px; }
+    #giar-gallery-2025 .giar-carousel { gap: 8px; }
+    #giar-gallery-2025 .giar-arrow { width: 34px; height: 34px; }
+    #giar-gallery-2025 .giar-arrow svg { width: 16px; height: 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #giar-gallery-2025 { --speed: 0s; }
+  }
+</style>
+
+<div id="giar-gallery-2025">
+  <div class="giar-content-wrapper">
+    <div class="section-header">
+      <h2 class="section-title">Así se vivió en 2025</h2>
+    </div>
+
+    <div class="giar-carousel">
+      <button type="button" class="giar-arrow" id="giar-prev" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4 7 12l8 8"/></svg>
+      </button>
+      <div class="giar-viewport">
+        <div class="giar-track" id="giar-track"></div>
+      </div>
+      <button type="button" class="giar-arrow" id="giar-next" aria-label="Siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 4 8 8-8 8"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  // Reemplazá estas 7 rutas por tus imágenes reales
+  var photos = [
+    "https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/1-Bienvenida/video.jpg" , 
+    "https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/1-Bienvenida/Directores_GIAR.jpg" ,
+    "https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/3-Presentación Grupo Giar/living_todos_mid.jpg", 
+    "https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/4-Reconocimieto claudio verrastro/foto_todos.jpg" , 
+    "https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/13-Agentes y Gemelos Digitales con Inteligencia Atificial/lean_y_lau.jpg",
+    "https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/11-El 5 dn la cancha... , y en las organizaciones/diego_lejos.jpg",
+    "https://raw.githubusercontent.com/cuso03/giar_evento_2025_landing/main/giar_eventos/2-Robotica_Viva/nelson_fuentes_y_franco_davino_with_robots.jpg"
+    
+  ];
+
+  var root  = document.getElementById("giar-gallery-2025");
+  var track = document.getElementById("giar-track");
+  var n = photos.length;
+  var CLONES = 4; // = máximo de fotos visibles
+
+  // Placeholder si la imagen no existe (se puede borrar)
+  function ph(i) {
+    return "data:image/svg+xml;utf8," + encodeURIComponent(
+      "<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200'><rect width='100%' height='100%' fill='#10152B'/><text x='50%' y='50%' fill='#8B93AD' font-family='sans-serif' font-size='22' text-anchor='middle' dominant-baseline='middle'>Foto " + (i + 1) + "</text></svg>");
+  }
+
+  function makeSlide(i) {
+    var d = document.createElement("div");
+    d.className = "giar-slide";
+    var img = new Image();
+    img.src = photos[i];
+    img.alt = "Foto del evento 2025 (" + (i + 1) + ")";
+    img.draggable = false;
+    img.onerror = function () { img.onerror = null; img.src = ph(i); };
+    d.appendChild(img);
+    return d;
+  }
+
+  // [clones del final] + [7 reales] + [clones del inicio] => loop infinito
+  var k, i;
+  for (k = n - CLONES; k < n; k++) track.appendChild(makeSlide(k));
+  for (i = 0; i < n; i++) track.appendChild(makeSlide(i));
+  for (k = 0; k < CLONES; k++) track.appendChild(makeSlide(k));
+
+  var pos = CLONES, busy = false;
+
+  function step() {
+    var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    return track.children[0].offsetWidth + gap;
+  }
+  function render(animate) {
+    track.classList.toggle("no-anim", !animate);
+    track.style.transform = "translateX(" + (-pos * step()) + "px)";
+  }
+  function go(dir) {
+    if (busy) return;
+    busy = true;
+    pos += dir;
+    render(true);
+    var ms = (parseFloat(getComputedStyle(track).transitionDuration) || 0) * 1000;
+    setTimeout(function () {
+      // al entrar en la zona de clones, salta sin animación al equivalente real
+      if (pos >= n + CLONES) pos -= n;
+      if (pos < CLONES) pos += n;
+      render(false);
+      busy = false;
+    }, ms + 20);
+  }
+
+  document.getElementById("giar-next").onclick = function () { go(1); };
+  document.getElementById("giar-prev").onclick = function () { go(-1); };
+  window.addEventListener("resize", function () { render(false); });
+  render(false);
+
+  // Autoplay: avanza cada 3 segundos, se pausa con mouse/toque/foco
+  var INTERVAL = 3000, timer = null, paused = false;
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function start() {
+    stop();
+    if (reduce || paused || document.hidden) return;
+    timer = setInterval(function () { go(1); }, INTERVAL);
+  }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+  function pause()  { paused = true;  stop(); }
+  function resume() { paused = false; start(); }
+
+  root.addEventListener("mouseenter", pause);
+  root.addEventListener("mouseleave", resume);
+  root.addEventListener("focusin", pause);
+  root.addEventListener("focusout", resume);
+  document.addEventListener("visibilitychange", start);
+  start();
+
+  // Swipe en celular
+  var x0 = null;
+  track.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; pause(); }, { passive: true });
+  track.addEventListener("touchend", function (e) {
+    if (x0 === null) return;
+    setTimeout(resume, 1500);
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+    x0 = null;
+  });
+})();
+</script>

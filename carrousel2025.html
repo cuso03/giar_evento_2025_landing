@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carrusel GIAR AI & Robotics</title>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #000;
+    --card: #fff;
+    --arrow: #e8ecf5;
+    --visible: 4;      /* logos visibles */
+    --gap: 24px;
+    --card-h: 170px;
+    --speed: .5s;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: #fff;
+    font-family: "Red Hat Display", system-ui, sans-serif;
+  }
+  .gallery { padding: 56px 0; }
+  .gallery h2 {
+    margin: 0 0 32px;
+    text-align: center;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 700;
+    letter-spacing: -.01em;
+  }
+  .carousel {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .viewport { overflow: hidden; flex: 1; }
+  .track {
+    display: flex;
+    gap: var(--gap);
+    transition: transform var(--speed) cubic-bezier(.3, .7, .2, 1);
+    will-change: transform;
+  }
+  .track.no-anim { transition: none; }
+  .slide {
+    flex: 0 0 calc((100% - var(--gap) * (var(--visible) - 1)) / var(--visible));
+    height: var(--card-h);
+    background: var(--card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+  }
+  .slide img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; user-select: none; }
+  .arrow {
+    flex: none;
+    width: 44px; height: 44px;
+    background: none; border: 0; cursor: pointer;
+    color: var(--arrow);
+    display: grid; place-items: center;
+    border-radius: 50%;
+    transition: background .2s;
+  }
+  .arrow:hover { background: rgba(255,255,255,.12); }
+  .arrow:focus-visible { outline: 2px solid #7aa2ff; outline-offset: 2px; }
+  .arrow svg { width: 26px; height: 26px; }
+  @media (max-width: 900px) { :root { --visible: 2; --card-h: 150px; } }
+  @media (max-width: 520px) {
+    :root { --visible: 2; --gap: 12px; --card-h: 120px; }
+    .slide { padding: 8px; }
+    .arrow { width: 32px; height: 32px; }
+    .arrow svg { width: 22px; height: 22px; }
+    .carousel { gap: 4px; padding: 0 6px; }
+  }
+  @media (prefers-reduced-motion: reduce) { :root { --speed: 0s; } }
+</style>
+</head>
+<body>
+
+<section class="gallery" aria-label="Así se vivió en 2025">
+  <h2>Así se vivió en 2025</h2>
+  <div class="carousel">
+    <button class="arrow" id="prev" aria-label="Anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4 7 12l8 8"/></svg>
+    </button>
+    <div class="viewport">
+      <div class="track" id="track"></div>
+    </div>
+    <button class="arrow" id="next" aria-label="Siguiente">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 4 8 8-8 8"/></svg>
+    </button>
+  </div>
+</section>
+
+<script>
+  // Reemplazá estas 7 rutas por tus imágenes reales
+  const logos = [
+    "img/foto-1.jpg", "img/foto-2.jpg", "img/foto-3.jpg", "img/foto-4.jpg",
+    "img/foto-5.jpg", "img/foto-6.jpg", "img/foto-7.jpg"
+  ];
+
+  // Placeholder gris si la imagen no existe (se puede borrar)
+  const ph = n => "data:image/svg+xml;utf8," + encodeURIComponent(
+    `<svg xmlns='http://www.w3.org/2000/svg' width='200' height='140'><text x='50%' y='50%' fill='#999' font-family='sans-serif' font-size='22' text-anchor='middle' dominant-baseline='middle'>Foto ${n}</text></svg>`);
+
+  const track = document.getElementById("track");
+  const n = logos.length;
+  const CLONES = 4; // = máximo de elementos visibles
+
+  const makeSlide = i => {
+    const d = document.createElement("div");
+    d.className = "slide";
+    const img = new Image();
+    img.src = logos[i]; img.alt = "Foto " + (i + 1); img.draggable = false;
+    img.onerror = () => { img.onerror = null; img.src = ph(i + 1); };
+    d.appendChild(img);
+    return d;
+  };
+
+  // [clones del final] + [7 reales] + [clones del inicio] => loop infinito
+  for (let k = n - CLONES; k < n; k++) track.appendChild(makeSlide(k));
+  for (let i = 0; i < n; i++) track.appendChild(makeSlide(i));
+  for (let k = 0; k < CLONES; k++) track.appendChild(makeSlide(k));
+
+  let pos = CLONES;      // posición actual dentro del track
+  let busy = false;
+
+  const step = () => {
+    const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    return track.children[0].offsetWidth + gap;
+  };
+  const render = animate => {
+    track.classList.toggle("no-anim", !animate);
+    track.style.transform = `translateX(${-pos * step()}px)`;
+  };
+
+  function go(dir) {
+    if (busy) return;
+    busy = true;
+    pos += dir;
+    render(true);
+    const ms = parseFloat(getComputedStyle(track).transitionDuration) * 1000 || 0;
+    setTimeout(() => {
+      // al entrar en la zona de clones, salta sin animación al lugar equivalente
+      if (pos >= n + CLONES) pos -= n;
+      if (pos < CLONES) pos += n;
+      render(false);
+      busy = false;
+    }, ms + 20);
+  }
+
+  document.getElementById("next").onclick = () => go(1);
+  document.getElementById("prev").onclick = () => go(-1);
+  window.addEventListener("resize", () => render(false));
+  render(false);
+
+  // Swipe en celular
+  let x0 = null;
+  track.addEventListener("touchstart", e => x0 = e.touches[0].clientX, { passive: true });
+  track.addEventListener("touchend", e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+    x0 = null;
+  });
+</script>
+</body>
+</html>
